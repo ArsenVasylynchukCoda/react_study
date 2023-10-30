@@ -37,7 +37,6 @@ function Form() {
             todos.filter(elem => {
                 if (elem.id === id) {
                     elem.todoText = span.textContent
-                    console.log(elem)
                 }
             })
         }

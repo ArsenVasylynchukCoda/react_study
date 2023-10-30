@@ -7,12 +7,9 @@ function Users() {
     const [user, setUser] = useState()
 
     useInsertionEffect(() => {
-        const GetUsers = () => {
-            const result = fetch('https://jsonplaceholder.typicode.com/users')
+        fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(json => setUsers(json))
-        }
-        GetUsers()
     }, [])
 
     return (

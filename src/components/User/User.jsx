@@ -4,8 +4,6 @@ import Post from "../Post/Post"
 function User(props) {
     const [isShowDetail, setIsShowDetail] = useState(false)
 
-    console.log(isShowDetail)
-
     return (
         <div className="user">
             <span>{props.name}</span><br />
