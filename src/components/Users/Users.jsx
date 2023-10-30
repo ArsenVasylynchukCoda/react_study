@@ -4,15 +4,11 @@ import User from '../User/User'
 function Users() {
     const [num, setNum] = useState(0)
     const [users, setUsers] = useState([])
-    const [user, setUser] = useState()
 
     useInsertionEffect(() => {
-        const GetUsers = () => {
-            const result = fetch('https://jsonplaceholder.typicode.com/users')
+        fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
             .then(json => setUsers(json))
-        }
-        GetUsers()
     }, [])
 
     return (
@@ -25,7 +21,7 @@ function Users() {
 
             <div className="users">
                 {users && users.map(user => {
-                    return <User {...user}/>
+                    return <User {...user} />
                 })}
             </div>
         </>

@@ -27,13 +27,10 @@ function Post({ userId }) {
     // console.log(skills, name)
 
     useEffect(() => {
-        console.log(userId)
         fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
             .then(response => response.json())
             .then(json => setPosts(json))
     }, [])
-
-    console.log(posts)
 
     // const getPost = () => {
     //     posts && posts.map(post => {
@@ -56,7 +53,6 @@ function Post({ userId }) {
                 <h1>Post</h1>
                 {
                     posts && posts.map(post => {
-                        console.log(post)
                         return (
                             <div className="post__block">
                                 <br />
