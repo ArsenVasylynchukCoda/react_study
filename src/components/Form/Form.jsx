@@ -6,7 +6,7 @@ function Form() {
     const [todos, setTodos] = useState([])
     const [todoInputText, setTodoInputText] = useState('')
     const [editBtnClicked, setEditBtnClicked] = useState(false)
-    const [todoEmptyList] = document.getElementsByClassName('todos__list-empty')
+    const [todoEmptyList, setEmptyList] = useState(true)
     const getInputText = (e) => { setTodoInputText(e.target.value) }
 
     const formSubmit = (e) => {
@@ -17,7 +17,9 @@ function Form() {
             id: uuid()
         }
 
-        todoEmptyList.classList.remove('active')
+        if (todoEmptyList) {
+            setEmptyList((prevValue) => !prevValue)
+        }
 
         setTodos([...todos, todoObj])
         setTodoInputText('')
@@ -28,17 +30,17 @@ function Form() {
         setTodos(restTodos)
         
         if (!restTodos.length) {
-            todoEmptyList.classList.add('active')
+            setEmptyList((prevValue) => !prevValue)
         }
     }
 
-    const editTodo = (e, id) => {
+    const editTodo = (id) => {
         const [span] = document.getElementsByClassName('todos__item-text')
 
-        if (editBtnClicked) {
+        if (!editBtnClicked) {
             span.setAttribute("contenteditable", true)
             span.focus()
-            e.target.classList.add('active')
+            setEditBtnClicked((prevValue) => !prevValue)
         } else {
             span.setAttribute("contenteditable", false)
 
@@ -48,7 +50,7 @@ function Form() {
                 }
             })
 
-            e.target.classList.remove('active')
+            setEditBtnClicked((prevValue) => !prevValue)
         }
     }
 
@@ -67,14 +69,13 @@ function Form() {
             </div>
             <h2 className='todos__title'>Todos</h2>
             <div className='todos__list'>
-                <div className='todos__list-empty active'>Empty List!</div>
+                <div className={`todos__list-empty ${todoEmptyList ? 'active' : null}`}>Empty List!</div>
                 {
                     todos.length ? (
                         <ul>
                             {todos.map(todo => {
-                                return <li key={todo.id} className='todos__list-item'><span className='todos__item-text'>{todo.todoText}</span> <div className='todos__item-btns'><button className='todos__item-btn todos__item-delete' onClick={() => removeTodo(todo.id)}></button> <button className='todos__item-btn todos__item-edit' onClick={(e) => {
-                                    setEditBtnClicked((prevValue) => !prevValue)
-                                    editTodo(e, todo.id)
+                                return <li key={todo.id} className='todos__list-item'><span className='todos__item-text'>{todo.todoText}</span> <div className='todos__item-btns'><button className='todos__item-btn todos__item-delete' onClick={() => removeTodo(todo.id)}></button> <button className={`todos__item-btn todos__item-edit ${editBtnClicked ? 'active' : null}`} onClick={() => {
+                                    editTodo(todo.id)
                                 }}></button></div> </li>
                             })}
                         </ul>
