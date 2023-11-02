@@ -34,13 +34,14 @@ function Form() {
         }
     }
 
-    const editTodo = (id) => {
-        const [span] = document.getElementsByClassName('todos__item-text')
+    const editTodo = (e, id) => {
+        const [span] = e.target.parentElement.parentElement.getElementsByClassName('todos__item-text')
 
         if (!editBtnClicked) {
             span.setAttribute("contenteditable", true)
             span.focus()
             setEditBtnClicked((prevValue) => !prevValue)
+            e.target.classList.add('active')
         } else {
             span.setAttribute("contenteditable", false)
 
@@ -51,6 +52,8 @@ function Form() {
             })
 
             setEditBtnClicked((prevValue) => !prevValue)
+
+            e.target.classList.remove('active')
         }
     }
 
@@ -74,8 +77,8 @@ function Form() {
                     todos.length ? (
                         <ul>
                             {todos.map(todo => {
-                                return <li key={todo.id} className='todos__list-item'><span className='todos__item-text'>{todo.todoText}</span> <div className='todos__item-btns'><button className='todos__item-btn todos__item-delete' onClick={() => removeTodo(todo.id)}></button> <button className={`todos__item-btn todos__item-edit ${editBtnClicked ? 'active' : null}`} onClick={() => {
-                                    editTodo(todo.id)
+                                return <li key={todo.id} className='todos__list-item'><span className='todos__item-text'>{todo.todoText}</span> <div className='todos__item-btns'><button className='todos__item-btn todos__item-delete' onClick={() => removeTodo(todo.id)}></button> <button className={`todos__item-btn todos__item-edit`} onClick={(e) => {
+                                    editTodo(e, todo.id)
                                 }}></button></div> </li>
                             })}
                         </ul>
