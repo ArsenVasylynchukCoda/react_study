@@ -99,14 +99,6 @@ ul {
     background-image: url('./img/delete_icon.png');
 }
 
-.todos__item-edit {
-    background-image: url('./img/edit_icon.png');
-}
-
-.todos__item-edit.active {
-    background-image: url('./img/save_icon.png');
-}
-
 .todos__list-empty {
     width: 100%;
     padding: 20px;
@@ -118,4 +110,8 @@ ul {
 
 .todos__list-empty.active {
     display: block;
+}
+
+.todos__item-edit img {
+    width: 30px;
 }

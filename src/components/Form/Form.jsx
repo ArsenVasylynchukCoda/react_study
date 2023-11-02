@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import './Form.css'
+import TodoItem from '../todoItem/TodoItem'
+
 
 function Form() {
     const [todos, setTodos] = useState([])
@@ -34,26 +36,30 @@ function Form() {
         }
     }
 
-    const editTodo = (e, id) => {
-        const [span] = e.target.parentElement.parentElement.getElementsByClassName('todos__item-text')
+    console.log([1,2,3].map(elem => elem+1)) 
 
-        if (!editBtnClicked) {
-            span.setAttribute("contenteditable", true)
-            span.focus()
-            setEditBtnClicked((prevValue) => !prevValue)
-            e.target.classList.add('active')
-        } else {
-            span.setAttribute("contenteditable", false)
+    // const editTodo = (id, text) => {
+    //     const newTodos = todos.map(elem => {
+    //         if (elem.id === id) {
+    //             return {
+    //                 ...elem, todoText: text
+    //             }
+    //         } 
+    //         return elem
+    //     })
 
-            todos.filter(elem => {
-                if (elem.id === id) {
-                    elem.todoText = span.textContent
-                }
-            })
+    //     setTodos(newTodos)
+    // }
 
-            setEditBtnClicked((prevValue) => !prevValue)
+    const editTodo = (id, text) => {
+        const todoIndex = todos.findIndex(elem => elem.id === id)
+        if (todoIndex !== -1) {
+            const newTodos = [...todos]
+            newTodos[todoIndex] = {
+                ...newTodos[todoIndex], todoText: text
+            }
 
-            e.target.classList.remove('active')
+            setTodos(newTodos)
         }
     }
 
@@ -76,11 +82,7 @@ function Form() {
                 {
                     todos.length ? (
                         <ul>
-                            {todos.map(todo => {
-                                return <li key={todo.id} className='todos__list-item'><span className='todos__item-text'>{todo.todoText}</span> <div className='todos__item-btns'><button className='todos__item-btn todos__item-delete' onClick={() => removeTodo(todo.id)}></button> <button className={`todos__item-btn todos__item-edit`} onClick={(e) => {
-                                    editTodo(e, todo.id)
-                                }}></button></div> </li>
-                            })}
+                            {todos.map(todo => <TodoItem todo={todo} removeTodo={removeTodo} editTodo={editTodo}/>)}
                         </ul>
                     ) : null
                 }
