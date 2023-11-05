@@ -1,8 +1,8 @@
 import { useState } from "react"
 import { v4 as uuid } from 'uuid'
-import TodoItem from "../todoItem/TodoItem"
+import TodoItem from '../todoItem/TodoItem'
 
-function Todo () {
+function Todo() {
     const [todos, setTodos] = useState([])
     const [inputValue, setInputValue] = useState('')
 
@@ -16,8 +16,10 @@ function Todo () {
             id: uuid()
         }
 
-        setTodos(...todos, todo)
+        setTodos([...todos, todo])
         setInputValue('')
+
+        console.log(todos)
     }
 
     const removeTodo = (id) => {
@@ -29,8 +31,9 @@ function Todo () {
     const editTodo = (id, text) => {
         const newTodos = todos.map(todo => {
             if (todo.id === id) {
-               return {...todo, value: text}
+                return { ...todo, value: text }
             }
+            return todo
         })
 
         setTodos(newTodos)
@@ -40,12 +43,21 @@ function Todo () {
         <div className="todos">
             <div className="todos__form">
                 <form>
-                    <input type="text"  value={inputValue} onChange={inputAddValue}/>
-                    <button>Add</button>
+                    <input type="text" value={inputValue} onChange={inputAddValue} />
+                    <button onClick={addTodo}>Add</button>
                 </form>
             </div>
             <div className="todos__block">
-                <TodoItem todos={todos} removeTodo={removeTodo}/>
+                {
+                    todos.length ? (
+                        <ul>
+                            { todos.map(todo => {
+                                return <TodoItem todo={todo} removeTodo={removeTodo} editTodo={editTodo} />
+                            })}
+                        </ul>
+                    ) : null
+                }
+
             </div>
         </div>
     )
