@@ -1,6 +1,9 @@
 import { useState } from "react"
+import editIcon from '../../assets/images/edit_icon.png'
+import saveIcon from '../../assets/images/save_icon.png'
+import deleteIcon from '../../assets/images/delete_icon.png'
 
-function TodoItem ({todo, removeTodo, editTodo}) {
+function TodoItem ({todo, deleteOnClick, editTodo}) {
     const [inputText, setInputText] = useState(todo.value)
     const [isEdit, setIsEdit] = useState(false)
 
@@ -33,8 +36,14 @@ function TodoItem ({todo, removeTodo, editTodo}) {
                 )
             }
             <div className="todos__item-buttons">
-                <button onClick={() => removeTodo(todo.id)} className="todos__item-delete todos__item-btn">delete</button>
-                <button onClick={editOnClick} className="todos__item-btn todos__item-edit">edit</button>
+                <button onClick={() => deleteOnClick(todo.id)} className="todos__item-delete todos__item-btn"><img src={deleteIcon} alt="deleteIcon" /></button>
+                <button onClick={editOnClick} className="todos__item-btn todos__item-edit">{
+                    !isEdit ? (
+                        <img src={editIcon} alt="editIcon" />
+                    ) : (
+                        <img src={saveIcon} alt="saveIcon" />
+                    )
+                }</button>
             </div>
         </li>
     )
