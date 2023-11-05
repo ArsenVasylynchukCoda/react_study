@@ -24,17 +24,17 @@ function TodoItem ({todo, removeTodo, editTodo}) {
     } 
 
     return (
-        <li key={todo.id}>
+        <li key={todo.id} className="todos__list-item">
             {
                 !isEdit ? (
-                    <span>{todo.value}</span>
+                    <span className="todos__item-text">{todo.value}</span>
                 ) : (
                     <input type="text" value={inputText} onChange={changeInputText} />
                 )
             }
-            <div>
-                <button onClick={() => removeTodo(todo.id)}>delete</button>
-                <button onClick={editOnClick}>edit</button>
+            <div className="todos__item-buttons">
+                <button onClick={() => removeTodo(todo.id)} className="todos__item-delete todos__item-btn">delete</button>
+                <button onClick={editOnClick} className="todos__item-btn todos__item-edit">edit</button>
             </div>
         </li>
     )
