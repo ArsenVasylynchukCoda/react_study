@@ -1,0 +1,15 @@
+.navigation {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.navigation a {
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.navigation a.active {
+    color: #ff0000;
+}

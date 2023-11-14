@@ -1,6 +1,6 @@
 function HomePage () {
     return (
-        <h1>My first project!</h1>
+        <h1 className="home-title">Home Page!</h1>
     )
 }
 

@@ -1,0 +1,21 @@
+.users__block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.users__item {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.users__item-name {
+    font-size: 25px;
+}
+
+.users__item-detail {
+    font-size: 25px;
+    color: grey;
+    text-decoration: none;
+}
