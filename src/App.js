@@ -17,9 +17,8 @@ function App() {
       <Navigation />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path="/users" element={<UsersPage/>}>
-          <Route path="/users/:id" element={<UserPage />}/>
-        </Route>
+        <Route path="/users" element={<UsersPage/>} />
+        <Route path="/users/:id" element={<UserPage />}/>
         <Route path='/todo' element={<Todo/>} />
         <Route path="/not-found" element={<NotFoundPage />} />
         <Route path="*" element={<Navigate to="/not-found" />} />
